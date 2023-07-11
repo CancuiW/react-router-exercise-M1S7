@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Routes,Route,Link } from 'react-router-dom'
 // 👉 STEP 2 - React Router imports (Routes, Route and Link)
 
 // Components used for the different routes
@@ -18,7 +19,11 @@ export default function App(props) {
       return Promise.resolve({ success: true, data })
     }
     // fetching the stock after first render
-    fetchStock().then(res => setStock(res.data))
+    fetchStock().then(res => {
+      setStock(res.data)
+      //console.log(res.data)
+
+    })
   }, [])
 
   return (
@@ -27,6 +32,8 @@ export default function App(props) {
         <h1 className='store-header'>Emily&apos;s Trinkets</h1>
         <div className='nav-links'>
           {/* 👉 STEP 3 - Make Links to navigate us Home (`/`) and Shop (`items-list`) */}
+          <Link to='/'>Home</Link>
+          <Link to='items-list'>Shop</Link>
         </div>
       </nav>
 
@@ -34,6 +41,12 @@ export default function App(props) {
       {/* Note that the components will need some props in order to work */}
       {/* Note that the path that renders Item has a URL parameter */}
       {/* Note that the path that renders Item must support nested routes */}
+      <Routes>
+        <Route path='/' element={<Home items={stock} />}/>
+        <Route path='items-list' element={<ItemsList items={stock} />} />
+        <Route path='items-list/:itemID/*' element={<Item items={stock} />} />
+       
+      </Routes>
 
     </div>
   )

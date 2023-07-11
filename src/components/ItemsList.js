@@ -1,8 +1,10 @@
 import React from 'react'
 // We'll need a Link from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default function ItemsList(props) {
   const { items } = props
+  //console.log(props.items)
 
   return (
     <div className='items-list-wrapper'>
@@ -12,6 +14,7 @@ export default function ItemsList(props) {
           key={item.id}
         >
           {/* 👉 STEP 6 - Link starts, navigates us from <current url> to <current url>/<id of the item> */}
+          <Link to={`${item.id}`}>
           <>
             <img
               className='items-list-image'
@@ -21,7 +24,7 @@ export default function ItemsList(props) {
             <p>{item.name}</p>
           </>
           {/* Link ends */}
-
+          </Link>
           <p>${item.price}</p>
         </div>
       ))}
